@@ -1,131 +1,149 @@
 <!DOCTYPE html>
+<html lang="es" >
 <html>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <title>Ejercicio scrollbar ventanas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-$( init );
-function init() {
-  $(".fulfilled").hide();
+  <script>
 
+  $( init );
 
+  function init() {
+    $(".fulfilled").hide();
+    $("#frame1_1").data('isOk', false);
+    $("#frame1_2").data('isOk', false);
+    $("#frame1_3").data('isOk', false);
+    $("#frame2_1").data('isOk', false);
+    $("#frame2_2").data('isOk', false);
+    $("#frame2_3").data('isOk', false);
+    $("#frame3_1").data('isOk', false);
+    $("#frame3_2").data('isOk', false);
+    $("#frame3_3").data('isOk', false);
+  }
 
+  $(document).ready(function(){
+    insertaSaltosLinea(".linea1");
+    $(".linea1").append("M");
+    insertaSaltosLinea(".linea1");
 
+    insertaEspacios(".linea2");
+    $(".linea2").append("O");
+    insertaEspacios(".linea2");
 
+    insertaSaltosLinea(".linea3");
+    insertaEspacios(".linea3");
+    $(".linea3").append("M");
+    insertaEspacios(".linea3");
+    insertaSaltosLinea(".linea3");
 
-}
-$(document).ready(function(){
-  insertaSaltosLinea(".linea1");
-  $(".linea1").append("M");
-  insertaSaltosLinea(".linea1");
+    defineSiColoreaFramesLinea1("#frame1_1");
+    defineSiColoreaFramesLinea1("#frame1_2");
+    defineSiColoreaFramesLinea1("#frame1_3");
 
-  insertaEspacios(".linea2");
-  $(".linea2").append("O");
-  insertaEspacios(".linea2");
+    defineSiColoreaFramesLinea2("#frame2_1");
+    defineSiColoreaFramesLinea2("#frame2_2");
+    defineSiColoreaFramesLinea2("#frame2_3");
 
-  insertaSaltosLinea(".linea3");
-  insertaEspacios(".linea3");
-  $(".linea3").append("M");
-  insertaEspacios(".linea3");
-  insertaSaltosLinea(".linea3");
-
-  defineSiColoreaFramesLinea1("#frame1_1");
-  defineSiColoreaFramesLinea1("#frame1_2");
-  defineSiColoreaFramesLinea1("#frame1_3");
-
-  defineSiColoreaFramesLinea2("#frame2_1");
-  defineSiColoreaFramesLinea2("#frame2_2");
-  defineSiColoreaFramesLinea2("#frame2_3");
-
-  defineSiColoreaFramesLinea3("#frame3_1");
-  defineSiColoreaFramesLinea3("#frame3_2");
-  defineSiColoreaFramesLinea3("#frame3_3");
-
-  $("button").click(function(){
-    if (   ($("#frame").scrollTop() < 610)
-        || ($("#frame").scrollTop() > 660))
-        {
-          alert("LA LETRA NO ESTA CENTRADA, SIGUE INTENTANDO");
-          $("#frame").scrolling = no;
-        } else {
-          $("#frame").css("overflow", "hidden");
-          $("i").show();
-        }
+    defineSiColoreaFramesLinea3("#frame3_1");
+    defineSiColoreaFramesLinea3("#frame3_2");
+    defineSiColoreaFramesLinea3("#frame3_3");
   });
-});
 
-function insertaSaltosLinea(frame) {
-  for ( var i=0; i<10; i++ ) {
-    $(frame).append("<br />");
+  function insertaSaltosLinea(frame) {
+    for ( var i=0; i<10; i++ ) {
+      $(frame).append("<br />");
+    }
   }
-}
 
-function insertaEspacios(frame) {
-  for ( var i=0; i<50; i++ ) {
-    $(frame).append("&nbsp;");
+  function insertaEspacios(frame) {
+    for ( var i=0; i<50; i++ ) {
+      $(frame).append("&nbsp;");
+    }
   }
-}
 
-function defineSiColoreaFramesLinea1(frame) {
-  $(frame).scroll(function() {
-    //console.log($(frame).scrollTop());
-    if (   ($(frame).scrollTop() > 830 )
-        && ($(frame).scrollTop() < 930))
-        {
-          $(frame).css("background-color", "#00ffff");
-        } else {
-          $(frame).css("background-color","white");
-        }
-    }
-  );
-}
+  function defineSiColoreaFramesLinea1(frame) {
+    $(frame).scroll(function() {
+      //console.log($(frame).scrollTop());
+      if (   ($(frame).scrollTop() > 830 )
+          && ($(frame).scrollTop() < 930))
+          {
+            $(frame).css("background-color", "#00ffff");
+            $(frame).data('isOk', true);
+            validaSiFulfilled();
+          } else {
+            $(frame).css("background-color","white");
+            $(frame).data('isOk', false);
+            $(".fulfilled").hide();
+          }
+      }
+    );
+  }
 
-function defineSiColoreaFramesLinea2(frame) {
-  $(frame).scroll(function() {
-    //console.log($(frame).scrollLeft());
-    if (   ($(frame).scrollLeft() > 760 )
-        && ($(frame).scrollLeft() < 1000))
-        {
-          $(frame).css("background-color", "#ff00ff");
-        } else {
-          $(frame).css("background-color","white");
-        }
-    }
-  );
-}
+  function defineSiColoreaFramesLinea2(frame) {
+    $(frame).scroll(function() {
+      //console.log($(frame).scrollLeft());
+      if (   ($(frame).scrollLeft() > 760 )
+          && ($(frame).scrollLeft() < 1000))
+          {
+            $(frame).css("background-color", "#ff00ff");
+            $(frame).data('isOk', true);
+            validaSiFulfilled();
+          } else {
+            $(frame).css("background-color","white");
+            $(frame).data('isOk', false);
+            $(".fulfilled").hide();
+          }
+      }
+    );
+  }
 
-function defineSiColoreaFramesLinea3(frame) {
-  $(frame).scroll(function() {
-    //console.log($(frame).scrollTop());
-    //console.log($(frame).scrollLeft());
-    if (   ($(frame).scrollTop() > 830 )
-        && ($(frame).scrollTop() < 930 )
-        && ($(frame).scrollLeft() > 760 )
-        && ($(frame).scrollLeft() < 1000))
-        {
-          $(frame).css("background-color", "#ffff00");
-        } else {
-          $(frame).css("background-color","white");
-        }
+  function defineSiColoreaFramesLinea3(frame) {
+    $(frame).scroll(function() {
+      //console.log($(frame).scrollTop());
+      //console.log($(frame).scrollLeft());
+      if (   ($(frame).scrollTop() > 830 )
+          && ($(frame).scrollTop() < 930 )
+          && ($(frame).scrollLeft() > 760 )
+          && ($(frame).scrollLeft() < 1000))
+          {
+            $(frame).css("background-color", "#ffff00");
+            $(frame).data('isOk', true);
+            validaSiFulfilled();
+          } else {
+            $(frame).css("background-color","white");
+            $(frame).data('isOk', false);
+            $(".fulfilled").hide();
+          }
+      }
+    );
+  }
+
+  function validaSiFulfilled() {
+    if (    ($("#frame1_1").data('isOk'))
+         && ($("#frame1_2").data('isOk'))
+         && ($("#frame1_3").data('isOk'))
+         && ($("#frame2_1").data('isOk'))
+         && ($("#frame2_2").data('isOk'))
+         && ($("#frame2_3").data('isOk'))
+         && ($("#frame3_1").data('isOk'))
+         && ($("#frame3_2").data('isOk'))
+         && ($("#frame3_3").data('isOk'))
+       ) {
+      $(".fulfilled").show();
     }
-  );
-}
+  }
 
 </script>
 
 <style>
-h2 {
-  margin-left: 50px;
-}
-
-h2.fulfilled {
-  top-margin: 50px;
-}
 
 .row {
   width: 100%;
   clear:left;
+  text-align: center;
 }
 
 .contenedor {
@@ -135,6 +153,27 @@ h2.fulfilled {
   float: left;
   padding-right: 30px;
 }
+
+.contenedorFulfilled {
+  text-align: center;
+  width:900px;
+  padding-top: 10px;
+  animation: blinker 0.6s linear infinite;
+  color: #1c87c9;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+h2 {
+  margin-left: 50px;
+}
+
+h2.fulfilled {
+  display: inline-block;
+}
+
 .frames {
   float: left;
   text-align: center;
@@ -144,11 +183,7 @@ h2.fulfilled {
   height:150px;
   overflow:auto;
 }
-button {
-  margin-top: 50px;
-  font-size: 20px;
-  margin-right: 50px;
-}
+
 </style>
 
 </head>
@@ -177,8 +212,10 @@ button {
     </div>
   </div>
   <div class="row">
-    <h2 class="fulfilled"> MUY BIEN MAMA !!! </h2>
+    <div class="contenedorFulfilled">
+      <h2 class="fulfilled"> MUY BIEN MAMA !!! </h2>
+    </div>
   </div>
-
 </body>
+
 </html>
